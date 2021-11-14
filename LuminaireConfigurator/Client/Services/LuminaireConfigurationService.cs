@@ -14,6 +14,7 @@ namespace LuminaireConfigurator.Client.Services
             {
               new LuminaireConfiguration
               {
+                Id=1,
                 CreationTime = new DateTime(2020,11,8),
                 LampColor = 5400,
                 LampFlux = 2000,
@@ -22,6 +23,7 @@ namespace LuminaireConfigurator.Client.Services
               },
               new LuminaireConfiguration
               {
+                Id=2,
                 CreationTime = new DateTime(2020,12,9),
                 LampColor = 5700,
                 LampFlux = 3000,
@@ -30,6 +32,7 @@ namespace LuminaireConfigurator.Client.Services
               },
               new LuminaireConfiguration
               {
+                Id=3,
                 CreationTime = new DateTime(2021,1,4),
                 LampColor = 5700,
                 LampFlux = 10000,
