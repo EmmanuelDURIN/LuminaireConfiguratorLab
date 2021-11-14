@@ -1,16 +1,14 @@
 ﻿using LuminaireConfigurator.Shared.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LuminaireConfigurator.Client.Services
 {
   public class LuminaireConfigurationService
   {
-    public async Task<List<LuminaireConfiguration>> GetLuminaireConfigurations()
-    {
-      await Task.Delay(3000);
-      return new List<LuminaireConfiguration>()
+    private List<LuminaireConfiguration> luminaireConfigurations = new List<LuminaireConfiguration>()
             {
               new LuminaireConfiguration
               {
@@ -40,6 +38,15 @@ namespace LuminaireConfigurator.Client.Services
                 Name="Luminaires Puteaux"
               },
             };
+    public LuminaireConfiguration GetLuminaireConfigurationById(int id)
+    {
+      return luminaireConfigurations.FirstOrDefault( lc => lc.Id == id);
+    }
+    public async Task<List<LuminaireConfiguration>> GetLuminaireConfigurations()
+    {
+      await Task.Delay(300);
+      
+      return luminaireConfigurations;
     }
   }
 }
