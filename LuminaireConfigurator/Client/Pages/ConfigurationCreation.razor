@@ -16,6 +16,9 @@
     <div class="form-group row mb-1">
         <label class="col-sm-3 col-form-label" for="Optic">Optic</label>
         <div class="col-sm-9">
+            <CustomSelect Items="@this.Optics" DisplaySelector="(o=>o.ToUpper())" ValueSelector="(o=>o.ToLower())">
+                <option>Please select one</option>
+            </CustomSelect>
             <InputSelect class="form-control"  @bind-Value="@Configuration.Optic"  >
                 @foreach (var optic in this.Optics)
                 {

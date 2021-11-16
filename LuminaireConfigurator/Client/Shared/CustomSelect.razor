@@ -1,0 +1,25 @@
+﻿@typeparam TItem
+@typeparam TValue
+@typeparam TDisplay
+<select class="form-control">
+    @ChildContent
+    @foreach (var item in Items)
+    {
+        <option value="@ValueSelector(item)">@DisplaySelector(item)</option>
+    }
+</select>
+
+@code {
+    [Parameter]
+    public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public Func<TItem, TValue> ValueSelector { get; set; }
+
+    [Parameter]
+    public Func<TItem, TDisplay> DisplaySelector { get; set; }
+
+}
