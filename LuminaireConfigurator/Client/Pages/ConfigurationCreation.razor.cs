@@ -1,17 +1,27 @@
-﻿using LuminaireConfigurator.ViewModel;
+﻿using LuminaireConfigurator.Client.Services;
+using LuminaireConfigurator.Shared.Model;
+using LuminaireConfigurator.ViewModel;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LuminaireConfigurator.Client.Pages
 {
   public partial class ConfigurationCreation
   {
-    public LuminaireConfiguration Configuration { get; set; } = new LuminaireConfiguration();
+    public ViewModel.LuminaireConfiguration Configuration { get; set; } = new ViewModel.LuminaireConfiguration();
     public int[] LampColors { get; set; } = new int[] { 2200, 2700, 3000, 4000, 5700 };
-    public string[] Optics { get; set; } = new string[] { "ON10", "ON11", "OL10", "OL11", "OM10", "OM11" };
+    public List<Optic> Optics { get; set; } = new List<Optic>();
     public bool IsModified { get => EditContext.IsModified(); }
     public EditContext EditContext { get; set; }
     private ValidationMessageStore messageStore;
+    protected async override Task OnInitializedAsync()
+    {
+      var opticService = new OpticService();
+      Optics = await opticService.GetOptics();
+      await base.OnInitializedAsync();
+    }
     protected override void OnInitialized()
     {
       EditContext = new(Configuration);

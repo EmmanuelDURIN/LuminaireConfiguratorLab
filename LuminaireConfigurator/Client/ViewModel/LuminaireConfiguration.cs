@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LuminaireConfigurator.Shared.Model;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace LuminaireConfigurator.ViewModel
@@ -8,7 +9,7 @@ namespace LuminaireConfigurator.ViewModel
     [Required]
     public string Name { get; set; }
     [Required]
-    public string Optic { get; set; } //= "OM10";
+    public Optic Optic { get; set; } = new Optic { Id = 1, Name = "OM10" };
     [Range(1, 1E10)]
     public double LampFlux { get; set; } = 5000;
     [Range(1, 1E6)]

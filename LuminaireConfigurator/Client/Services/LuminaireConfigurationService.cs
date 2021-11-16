@@ -44,8 +44,7 @@ namespace LuminaireConfigurator.Client.Services
     }
     public async Task<List<LuminaireConfiguration>> GetLuminaireConfigurations()
     {
-      await Task.Delay(300);
-      
+      await Task.Delay(10);
       return luminaireConfigurations;
     }
   }

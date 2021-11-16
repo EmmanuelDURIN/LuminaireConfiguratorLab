@@ -1,15 +1,17 @@
 ﻿@typeparam TItem
 @typeparam TValue
 @typeparam TDisplay
-<select class="form-control">
+<select class="form-control" @onchange="OnSelectedChanged">
     @ChildContent
     @foreach (var item in Items)
     {
-        <option value="@ValueSelector(item)">@DisplaySelector(item)</option>
+        bool isSelected = Selected != null && ValueSelector(item).Equals(ValueSelector(Selected));
+        <option value="@ValueSelector(item)" selected="@isSelected">@DisplaySelector(item)</option>
     }
 </select>
 
 @code {
+
     [Parameter]
     public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
 
@@ -22,4 +24,13 @@
     [Parameter]
     public Func<TItem, TDisplay> DisplaySelector { get; set; }
 
+    [Parameter]
+    public TItem Selected { get; set; }
+    private Task OnSelectedChanged(ChangeEventArgs e)
+    {
+        Selected = Items.FirstOrDefault( i => ValueSelector(i).ToString().Equals( e.Value));
+        return SelectedChanged.InvokeAsync(Selected);
+    }
+    [Parameter]
+    public EventCallback<TItem> SelectedChanged { get; set; }
 }
