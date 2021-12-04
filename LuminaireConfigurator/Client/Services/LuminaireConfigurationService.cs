@@ -1,51 +1,26 @@
 ﻿using LuminaireConfigurator.Shared.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace LuminaireConfigurator.Client.Services
 {
-  public class LuminaireConfigurationService
+  public class LuminaireConfigurationService : ILuminaireConfigurationService
   {
-    private List<LuminaireConfiguration> luminaireConfigurations = new List<LuminaireConfiguration>()
-            {
-              new LuminaireConfiguration
-              {
-                Id=1,
-                CreationTime = new DateTime(2020,11,8),
-                LampColor = 5400,
-                LampFlux = 2000,
-                Optic = "OM10",
-                Name="Luminaires Nanterre"
-              },
-              new LuminaireConfiguration
-              {
-                Id=2,
-                CreationTime = new DateTime(2020,12,9),
-                LampColor = 5700,
-                LampFlux = 3000,
-                Optic = "OM11",
-                Name="Luminaires Courbevoie"
-              },
-              new LuminaireConfiguration
-              {
-                Id=3,
-                CreationTime = new DateTime(2021,1,4),
-                LampColor = 5700,
-                LampFlux = 10000,
-                Optic = "OM12",
-                Name="Luminaires Puteaux"
-              },
-            };
-    public LuminaireConfiguration GetLuminaireConfigurationById(int id)
+    public HttpClient HttpClient { get; set; }
+    public const string BaseUri = nameof(LuminaireConfiguration);
+    public LuminaireConfigurationService(HttpClient httpClient)
     {
-      return luminaireConfigurations.FirstOrDefault( lc => lc.Id == id);
+      this.HttpClient = httpClient;
+    }
+    public async Task<LuminaireConfiguration> GetLuminaireConfigurationById(int id)
+    {
+      return await HttpClient.GetFromJsonAsync<LuminaireConfiguration>(BaseUri + "/" + id);
     }
     public async Task<List<LuminaireConfiguration>> GetLuminaireConfigurations()
     {
-      await Task.Delay(10);
-      return luminaireConfigurations;
+      return await HttpClient.GetFromJsonAsync<List<LuminaireConfiguration>>(BaseUri);
     }
   }
 }
