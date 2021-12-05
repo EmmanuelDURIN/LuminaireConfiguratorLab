@@ -1,11 +1,10 @@
-﻿using LuminaireConfigurator.Client.Services;
-using LuminaireConfigurator.Shared.Model;
+﻿using LuminaireConfigurator.Shared.Model;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace LuminaireConfigurator.Client.Pages
+namespace LuminaireConfigurator.Client.Components
 {
-  public partial class ConfigurationDetails
+  public partial class ConfigurationDetails : ComponentBase
   {
     [Inject]
     public NavigationManager NavigationManager { get; set; }
@@ -13,11 +12,21 @@ namespace LuminaireConfigurator.Client.Pages
     [Parameter]
     public int Id { get => id; set => id = value; }
     private LuminaireConfiguration configuration;
+    [Parameter]
     public LuminaireConfiguration Configuration
     {
       get => configuration;
-      set => configuration = value;
+      set
+      {
+        if (configuration != value)
+        {
+          configuration = value;
+          ConfigurationChanged.InvokeAsync();
+        }
+      }
     }
+    [Parameter]
+    public EventCallback<LuminaireConfiguration> ConfigurationChanged { get; set; }
     public ConfigurationDetails()
     {
     }
@@ -28,12 +37,6 @@ namespace LuminaireConfigurator.Client.Pages
     protected override Task OnParametersSetAsync()
     {
       return base.OnParametersSetAsync();
-    }
-    protected async override Task OnInitializedAsync()
-    {
-      Configuration = await LuminaireConfigurationService.GetLuminaireConfigurationById(Id);
-      if (Configuration == null)
-        NavigationManager.NavigateTo("NotFound");
     }
   }
 }

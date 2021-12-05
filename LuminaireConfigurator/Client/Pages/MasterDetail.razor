@@ -1,0 +1,14 @@
+﻿@page "/masterdetail"
+@using LuminaireConfigurator.Client.Components
+@using LuminaireConfigurator.Shared
+
+<div class="container">
+  <div class="row">
+    <div class="col"><ConfigurationList @bind-SelectedConfiguration="@SelectedConfiguration"/>
+    </div>
+    <div class="col"><ConfigurationDetails Configuration="@SelectedConfiguration"/>
+    </div>
+  </div>
+</div>
+
+

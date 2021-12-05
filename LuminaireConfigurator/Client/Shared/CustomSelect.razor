@@ -1,7 +1,7 @@
 ﻿@typeparam TItem
 @typeparam TValue
 @typeparam TDisplay
-<select class="form-control" @bind="@SelectedValue">
+<select size="@Size" class="form-control" @bind="@SelectedValue">
     @ChildContent
     @foreach (var item in Items)
     {
@@ -11,37 +11,29 @@
 </select>
 
 @code {
-
     [Parameter]
     public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
-
     [Parameter]
     public RenderFragment ChildContent { get; set; }
-
     [Parameter]
     public Func<TItem, TValue> ValueSelector { get; set; }
-
     [Parameter]
     public Func<TItem, TDisplay> DisplaySelector { get; set; }
-
     private TValue selectedValue { get; set; }
-    public TValue SelectedValue 
-    { 
-        get => selectedValue ;
+    public TValue SelectedValue
+    {
+        get => selectedValue;
         set
         {
             selectedValue = value;
-            Selected = Items.FirstOrDefault( i => ValueSelector(i).ToString().Equals( value));
+            Selected = Items.FirstOrDefault(i => ValueSelector(i).ToString().Equals(value.ToString()));
             SelectedChanged.InvokeAsync(Selected);
         }
     }
     [Parameter]
     public TItem Selected { get; set; }
-    //private Task OnSelectedChanged(ChangeEventArgs e)
-    //{
-    //    Selected = Items.FirstOrDefault( i => ValueSelector(i).ToString().Equals( e.Value));
-    //    return SelectedChanged.InvokeAsync(Selected);
-    //}
     [Parameter]
     public EventCallback<TItem> SelectedChanged { get; set; }
+    [Parameter]
+    public int Size { get; set; } = 1;
 }

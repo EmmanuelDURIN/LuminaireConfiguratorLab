@@ -1,0 +1,15 @@
+﻿@using LuminaireConfigurator.Shared
+
+@if (luminaireConfigurations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <CustomSelect Size="20" 
+                   Items="@luminaireConfigurations" 
+                   @bind-Selected="SelectedConfiguration"
+                   ValueSelector="@(l=> l.Id)" 
+                   DisplaySelector="@(l=>$"{l.Name} {l.Optic} {l.LampFlux} lm")">
+    </CustomSelect>
+}
