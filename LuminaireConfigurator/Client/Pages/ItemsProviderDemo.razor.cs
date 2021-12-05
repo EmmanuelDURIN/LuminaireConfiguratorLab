@@ -13,7 +13,7 @@ namespace LuminaireConfigurator.Client.Pages
     private async ValueTask<ItemsProviderResult<LuminaireConfiguration>> LoadConfigurations(ItemsProviderRequest request)
     {
       (LuminaireConfiguration[] foreCasts, int totalForeCasts) =
-        await LuminaireConfigurationService.GetRange(request.StartIndex, request.Count, request.CancellationToken);
+        await LuminaireConfigurationService.GetRangeWithDelay(request.StartIndex, request.Count, request.CancellationToken);
       return new ItemsProviderResult<LuminaireConfiguration>(foreCasts, totalForeCasts);
     }
   }

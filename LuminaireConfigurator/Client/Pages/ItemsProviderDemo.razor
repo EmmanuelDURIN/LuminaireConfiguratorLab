@@ -2,33 +2,20 @@
 
 @using LuminaireConfigurator.Shared
 
-<h1>Configuration List - ItemProvideDemo</h1>
+<h1>Configuration List - ItemsProviderDemo</h1>
 
 <p>List of configurations</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Configuration Name</th>
-            <th>Creation Date</th>
-            <th>Lamp Color (°K)</th>
-            <th>Optic</th>
-            <th>LampFlux (lm)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <Virtualize Context="configuration" ItemsProvider="LoadConfigurations">
-            @*            @foreach (var configuration in luminaireConfigurations)
-                {
-            *@
-            <tr>
-                <td><a href="configurationdetails/@configuration.Id">@configuration.Name</a></td>
-                <td>@configuration.CreationTime.ToShortDateString()</td>
-                <td>@configuration.LampColor</td>
-                <td>@configuration.Optic</td>
-                <td>@configuration.LampFlux</td>
-            </tr>
-            @*}*@
-        </Virtualize>
-    </tbody>
-</table>
+<div style="height:500px;overflow-y:scroll; border:solid 1px black">
+    <Virtualize Context="configuration" ItemsProvider="LoadConfigurations">
+        <ItemContent>
+            <div>
+                @configuration.Name (@configuration.Optic)
+            </div>
+        </ItemContent>
+        <Placeholder>
+            <div>
+                Loading&hellip;
+            </div>
+        </Placeholder>
+    </Virtualize>
+</div>

@@ -38,7 +38,6 @@ namespace LuminaireConfigurator.Client.Services
       int totalConfigurations = await HttpClient.GetFromJsonAsync<int>("LuminaireConfiguration/count");
       var numConfigurations = Math.Min(count, totalConfigurations - startIndex);
       LuminaireConfiguration[] luminaireConfigurations = new LuminaireConfiguration[0];
-
       try
       {
         luminaireConfigurations = await HttpClient.GetFromJsonAsync<LuminaireConfiguration[]>

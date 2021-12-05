@@ -1,8 +1,5 @@
-﻿using LuminaireConfigurator.Client.Services;
-using LuminaireConfigurator.Shared.Model;
-using Microsoft.AspNetCore.Components;
+﻿using LuminaireConfigurator.Shared.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +15,7 @@ namespace LuminaireConfigurator.Client.Pages
     }
     protected override Task OnInitializedAsync()
     {
-            Console.WriteLine("Before Enumerable.Range");
+      Console.WriteLine("Before Enumerable.Range");
       LuminaireConfigurations = Enumerable.Range(1, 500_000)
                                           .Select(
                                             i => new LuminaireConfiguration
@@ -32,7 +29,6 @@ namespace LuminaireConfigurator.Client.Pages
                                             })
                                           .ToArray();
       Console.WriteLine("After Enumerable.Range");
-
       return Task.FromResult(0);
     }
   }
