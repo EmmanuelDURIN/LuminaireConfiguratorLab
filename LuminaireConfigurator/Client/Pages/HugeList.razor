@@ -24,9 +24,6 @@ else
         </thead>
         <tbody>
                 <Virtualize Context="configuration" Items="@luminaireConfigurations">
-@*            @foreach (var configuration in luminaireConfigurations)
-            {
-*@ 
                 <tr>
                     <td><a href="configurationdetails/@configuration.Id">@configuration.Name</a></td>
                     <td>@configuration.CreationTime.ToShortDateString()</td>
@@ -34,7 +31,6 @@ else
                     <td>@configuration.Optic</td>
                     <td>@configuration.LampFlux</td>
                 </tr>
-            @*}*@
     </Virtualize>
         </tbody>
     </table>

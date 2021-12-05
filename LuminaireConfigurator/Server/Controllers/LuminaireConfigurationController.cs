@@ -52,6 +52,11 @@ namespace LuminaireConfigurator.Server.Controllers
     {
       return luminaireConfigurations;
     }
+    [HttpGet("huge")]
+    public IEnumerable<LuminaireConfiguration> GetHuge()
+    {
+      return luminaireConfigurations;
+    }
     [HttpGet("{id}")]
     public ActionResult<LuminaireConfiguration> GetById(int id)
     {
@@ -59,6 +64,26 @@ namespace LuminaireConfigurator.Server.Controllers
       if (lumConf == null)
         return NotFound("No Luminaire with id=" + id);
       return Ok(lumConf);
+    }
+    const int totalLuminaires = 500_000;
+    [HttpGet("count")]
+    public int GetCount()
+    {
+      return totalLuminaires;
+    }
+    [HttpGet("range")]
+    public IEnumerable<LuminaireConfiguration> GetRange(int startIndex, int numConfigurations)
+    {
+      return Enumerable.Range(startIndex, numConfigurations).Select(i => new LuminaireConfiguration
+      {
+        Id = i,
+        Name = "Luminaire" + i,
+        CreationTime = DateTime.Now,
+        LampColor = 3000 + (i % 2000),
+        Optic = "OM" + (i % 10),
+        LampFlux = 1000,
+      })
+      .ToArray();
     }
   }
 }
