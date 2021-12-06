@@ -10,5 +10,15 @@ namespace LuminaireConfigurator.Shared.Model
     public string Optic { get; set; }
     public double LampFlux { get; set; }
     public int LampColor { get; set; }
+
+    public override bool Equals(object obj)
+    {
+      return obj is LuminaireConfiguration configuration &&
+             Id == configuration.Id;
+    }
+    public override int GetHashCode()
+    {
+      return HashCode.Combine(Id);
+    }
   }
 }
