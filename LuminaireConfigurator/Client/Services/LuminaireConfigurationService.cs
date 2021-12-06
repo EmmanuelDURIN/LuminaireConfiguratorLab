@@ -22,5 +22,9 @@ namespace LuminaireConfigurator.Client.Services
     {
       return await HttpClient.GetFromJsonAsync<List<LuminaireConfiguration>>(BaseUri);
     }
+    public async Task PostAsync(LuminaireConfiguration lumConf)
+    {
+      await HttpClient.PostAsJsonAsync(BaseUri, lumConf);
+    }
   }
 }

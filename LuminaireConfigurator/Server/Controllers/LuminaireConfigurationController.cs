@@ -11,7 +11,7 @@ namespace LuminaireConfigurator.Server.Controllers
   [Route("[controller]")]
   public class LuminaireConfigurationController : ControllerBase
   {
-    private List<LuminaireConfiguration> luminaireConfigurations = new List<LuminaireConfiguration>()
+    private static List<LuminaireConfiguration> luminaireConfigurations = new List<LuminaireConfiguration>()
             {
               new LuminaireConfiguration
               {
@@ -59,6 +59,14 @@ namespace LuminaireConfigurator.Server.Controllers
       if (lumConf == null)
         return NotFound("No Luminaire with id=" + id);
       return Ok(lumConf);
+    }
+    [HttpPost]
+    public ActionResult<LuminaireConfiguration> Post(LuminaireConfiguration luminaireConfiguration)
+    {
+      int id = luminaireConfigurations.Max(l => l.Id);
+      luminaireConfiguration.Id = id + 1;
+      luminaireConfigurations.Add(luminaireConfiguration);
+      return Created(nameof(LuminaireConfiguration)+ "/"+id, luminaireConfiguration);
     }
   }
 }

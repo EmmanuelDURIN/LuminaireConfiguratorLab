@@ -1,6 +1,6 @@
 ﻿using LuminaireConfigurator.Client.Services;
 using LuminaireConfigurator.Shared.Model;
-using LuminaireConfigurator.ViewModel;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,10 @@ namespace LuminaireConfigurator.Client.Pages
 {
   public partial class ConfigurationCreation
   {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    public ILuminaireConfigurationService LuminaireConfigurationService { get; set; }
     public ViewModel.LuminaireConfiguration Configuration { get; set; } = new ViewModel.LuminaireConfiguration();
     public int[] LampColors { get; set; } = new int[] { 2200, 2700, 3000, 4000, 5700 };
     public List<Optic> Optics { get; set; } = new List<Optic>();
@@ -46,8 +50,18 @@ namespace LuminaireConfigurator.Client.Pages
       Console.WriteLine("HandleValidSubmit called: Processing the form");
       //Logger.LogInformation("HandleValidSubmit called: Processing the form");
     }
-    public void Create()
+    public async Task Create()
     {
+      var lumConf = new LuminaireConfiguration
+      {
+        CreationTime = DateTime.Now,
+        LampColor = Configuration.LampColor,
+        Optic = Configuration.Optic.Name,
+        LampFlux = Configuration.LampFlux,
+        Name = Configuration.Name
+      };
+      await LuminaireConfigurationService.PostAsync(lumConf);
+      NavigationManager.NavigateTo("configurationlist");
       Console.WriteLine("configuration created");
     }
     public void Dispose()
