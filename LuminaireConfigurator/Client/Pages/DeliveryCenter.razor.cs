@@ -52,14 +52,15 @@ namespace LuminaireConfigurator.Client.Pages
       if (SelectedConfiguration != null)
       {
         luminaireConfigurations.Remove(SelectedConfiguration);
-        await hubConnection.SendAsync("ConfigurationDelivered", SelectedConfiguration);
+        await hubConnection.SendAsync(nameof(IDeliveryCenterHub.ConfigurationDelivered), SelectedConfiguration);
         System.Console.WriteLine("delivered");
       }
     }
     protected override async Task OnInitializedAsync()
     {
       await ConnectToHub();
-      luminaireConfigurations = await hubConnection.InvokeAsync<List<LuminaireConfiguration>>("GetDeliveries");
+      luminaireConfigurations = await hubConnection.InvokeAsync<List<LuminaireConfiguration>>
+        (nameof(IDeliveryCenterHub.GetDeliveries));
       await base.OnInitializedAsync();
     }
     private HubConnection? hubConnection = null;

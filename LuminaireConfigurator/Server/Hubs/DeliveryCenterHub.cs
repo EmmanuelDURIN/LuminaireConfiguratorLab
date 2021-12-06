@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LuminaireConfigurator.Server.Hubs
 {
-    public class DeliveryCenterHub : Hub<IDeliveryCenterNotification>
+    public class DeliveryCenterHub : Hub<IDeliveryCenterNotification>, IDeliveryCenterHub
     {
         public List<LuminaireConfiguration> GetDeliveries()
         {
