@@ -13,5 +13,6 @@ namespace LuminaireConfigurator.Client.Services
            GetRangeWithDelay(int startIndex, int count, CancellationToken cancellationToken);
     Task<(LuminaireConfiguration[] configurations, int totalForeCasts)>
       GetRange(int startIndex, int count, CancellationToken cancellationToken);
+    Task PostAsync(LuminaireConfiguration lumConf);
   }
 }

@@ -58,5 +58,9 @@ namespace LuminaireConfigurator.Client.Services
       Console.WriteLine($"returning from {startIndex} to {startIndex + numConfigurations}");
       return (luminaireConfigurations, totalConfigurations);
     }
+    public async Task PostAsync(LuminaireConfiguration lumConf)
+    {
+      await HttpClient.PostAsJsonAsync(BaseUri, lumConf);
+    }
   }
 }
