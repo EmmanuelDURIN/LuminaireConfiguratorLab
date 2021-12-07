@@ -18,7 +18,7 @@
         <div class="col-sm-9">
             <CustomSelect Items="@this.Optics"
                           @bind-Selected="@Configuration.Optic"
-                          DisplaySelector="o=>o.Name.ToUpper()"
+                          DisplaySelector="x=>x.Name.ToUpper()"
                           ValueSelector="o=>o.Id"
                           >
                 <option>Please select one</option>

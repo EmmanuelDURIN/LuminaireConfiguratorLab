@@ -7,7 +7,7 @@ namespace LuminaireConfigurator.ViewModel
   public class LuminaireConfiguration
   {
     [Required]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     [Required]
     public Optic Optic { get; set; } = new Optic { Id = 1, Name = "OM10" };
     [Range(1, 1E10)]

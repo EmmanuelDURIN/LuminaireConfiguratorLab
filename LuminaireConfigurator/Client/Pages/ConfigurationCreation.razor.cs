@@ -11,15 +11,15 @@ namespace LuminaireConfigurator.Client.Pages
   public partial class ConfigurationCreation
   {
     [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    public NavigationManager? NavigationManager { get; set; }
     [Inject]
-    public ILuminaireConfigurationService LuminaireConfigurationService { get; set; }
+    public ILuminaireConfigurationService? LuminaireConfigurationService { get; set; }
     public ViewModel.LuminaireConfiguration Configuration { get; set; } = new ViewModel.LuminaireConfiguration();
     public int[] LampColors { get; set; } = new int[] { 2200, 2700, 3000, 4000, 5700 };
     public List<Optic> Optics { get; set; } = new List<Optic>();
-    public bool IsModified { get => EditContext.IsModified(); }
-    public EditContext EditContext { get; set; }
-    private ValidationMessageStore messageStore;
+    public bool IsModified { get => EditContext?.IsModified() == true; }
+    public EditContext? EditContext { get; set; }
+    private ValidationMessageStore? messageStore;
     protected async override Task OnInitializedAsync()
     {
       var opticService = new OpticService();
@@ -33,16 +33,18 @@ namespace LuminaireConfigurator.Client.Pages
       EditContext.OnFieldChanged += EditContextFieldChanged;
       messageStore = new(EditContext);
     }
-    private void EditContextFieldChanged(object sender, FieldChangedEventArgs e)
+    private void EditContextFieldChanged(object? sender, FieldChangedEventArgs e)
     {
     }
-    private void HandleValidationRequested(object sender, ValidationRequestedEventArgs args)
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
     {
-      messageStore.Clear();
+      messageStore?.Clear();
       // Custom validation logic
-      //if (!Configuration.Options)
+      // example of pseudo DB/Web api call
+      //bool isNameValid = true; 
+      //if (isNameValid && Configuration != null)
       //{
-      //  messageStore?.Add(() => Configuration.Options, "Select at least one.");
+      //  messageStore?.Add(() => Configuration.Name!, "Configuration name must be unique.");
       //}
     }
     private void HandleValidSubmit()
@@ -60,8 +62,9 @@ namespace LuminaireConfigurator.Client.Pages
         LampFlux = Configuration.LampFlux,
         Name = Configuration.Name
       };
-      await LuminaireConfigurationService.PostAsync(lumConf);
-      NavigationManager.NavigateTo("masterdetail");
+      if (LuminaireConfigurationService != null)
+        await LuminaireConfigurationService.PostAsync(lumConf);
+      NavigationManager?.NavigateTo("masterdetail");
       Console.WriteLine("configuration created");
     }
     public void Dispose()

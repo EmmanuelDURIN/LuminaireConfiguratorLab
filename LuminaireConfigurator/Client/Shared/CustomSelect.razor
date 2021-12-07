@@ -3,10 +3,13 @@
 @typeparam TDisplay
 <select size="@Size" class="form-control" @bind="@SelectedValue">
     @ChildContent
-    @foreach (var item in Items)
+    @if (ValueSelector !=null && DisplaySelector !=null )
     {
-        bool isSelected = Selected != null && ValueSelector(item).Equals(ValueSelector(Selected));
-        <option value="@ValueSelector(item)" selected="@isSelected">@DisplaySelector(item)</option>
+        foreach (var item in Items)
+        {
+            bool isSelected = Selected != null && ValueSelector(item).Equals(ValueSelector(Selected));
+            <option value="@ValueSelector(item)" selected="@isSelected">@DisplaySelector(item)</option>
+        }
     }
 </select>
 
@@ -14,24 +17,29 @@
     [Parameter]
     public IEnumerable<TItem> Items { get; set; } = Enumerable.Empty<TItem>();
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment? ChildContent { get; set; }
     [Parameter]
-    public Func<TItem, TValue> ValueSelector { get; set; }
+    public Func<TItem, TValue>? ValueSelector { get; set; }
     [Parameter]
-    public Func<TItem, TDisplay> DisplaySelector { get; set; }
-    private TValue selectedValue { get; set; }
-    public TValue SelectedValue
+    public Func<TItem, TDisplay>? DisplaySelector { get; set; }
+    private TValue? selectedValue { get; set; }
+    public TValue? SelectedValue
     {
         get => selectedValue;
         set
         {
             selectedValue = value;
-            Selected = Items.FirstOrDefault(i => ValueSelector(i).ToString().Equals(value.ToString()));
+            if ( ValueSelector == null || value == null)
+                return;
+            string? sValue = value.ToString();
+            if (sValue == null)
+                return;
+            Selected = Items.FirstOrDefault(i => sValue.Equals(ValueSelector(i)?.ToString()) == true );
             SelectedChanged.InvokeAsync(Selected);
         }
     }
     [Parameter]
-    public TItem Selected { get; set; }
+    public TItem? Selected { get; set; }
     [Parameter]
     public EventCallback<TItem> SelectedChanged { get; set; }
     [Parameter]

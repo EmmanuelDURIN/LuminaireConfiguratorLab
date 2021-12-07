@@ -40,7 +40,7 @@ namespace LuminaireConfigurator.Client.Services
                 Name="OL11"
               },
             };
-    public Optic GetLuminaireConfigurationById(int id)
+    public Optic? GetLuminaireConfigurationById(int id)
     {
       return optics.FirstOrDefault(lc => lc.Id == id);
     }

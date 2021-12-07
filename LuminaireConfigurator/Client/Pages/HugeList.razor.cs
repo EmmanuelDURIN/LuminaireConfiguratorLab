@@ -7,7 +7,7 @@ namespace LuminaireConfigurator.Client.Pages
 {
   public partial class HugeList
   {
-    private LuminaireConfiguration[] luminaireConfigurations;
+    private LuminaireConfiguration[] luminaireConfigurations = new LuminaireConfiguration[0];
     public LuminaireConfiguration[] LuminaireConfigurations
     {
       get => luminaireConfigurations;

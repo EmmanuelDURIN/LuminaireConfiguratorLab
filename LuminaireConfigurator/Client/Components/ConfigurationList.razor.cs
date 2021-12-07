@@ -8,9 +8,9 @@ namespace LuminaireConfigurator.Client.Components
 {
   public partial class ConfigurationList : ComponentBase
   {
-    private LuminaireConfiguration selectedConfiguration;
+    private LuminaireConfiguration? selectedConfiguration;
     [Parameter]
-    public LuminaireConfiguration SelectedConfiguration
+    public LuminaireConfiguration? SelectedConfiguration
     {
       get { return selectedConfiguration; }
       set
@@ -24,17 +24,18 @@ namespace LuminaireConfigurator.Client.Components
     }
     [Parameter]
     public EventCallback<LuminaireConfiguration> SelectedConfigurationChanged { get; set; }
-    private List<LuminaireConfiguration> luminaireConfigurations;
-    public List<LuminaireConfiguration> LuminaireConfigurations
+    private List<LuminaireConfiguration>? luminaireConfigurations;
+    public List<LuminaireConfiguration>? LuminaireConfigurations
     {
       get => luminaireConfigurations;
       set => luminaireConfigurations = value;
     }
     [Inject]
-    public ILuminaireConfigurationService LuminaireConfigurationService { get; set; }
+    public ILuminaireConfigurationService? LuminaireConfigurationService { get; set; }
     protected override async Task OnInitializedAsync()
     {
-      LuminaireConfigurations = await LuminaireConfigurationService.GetLuminaireConfigurations();
+      if (LuminaireConfigurationService != null)
+        LuminaireConfigurations = await LuminaireConfigurationService.GetLuminaireConfigurations();
     }
   }
 }

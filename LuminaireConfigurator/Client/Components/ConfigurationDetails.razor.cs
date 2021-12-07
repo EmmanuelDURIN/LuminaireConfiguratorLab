@@ -7,13 +7,13 @@ namespace LuminaireConfigurator.Client.Components
   public partial class ConfigurationDetails : ComponentBase
   {
     [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    public NavigationManager? NavigationManager { get; set; }
     private int id;
     [Parameter]
     public int Id { get => id; set => id = value; }
-    private LuminaireConfiguration configuration;
+    private LuminaireConfiguration? configuration;
     [Parameter]
-    public LuminaireConfiguration Configuration
+    public LuminaireConfiguration? Configuration
     {
       get => configuration;
       set

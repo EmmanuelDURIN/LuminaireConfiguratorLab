@@ -1,6 +1,5 @@
 ﻿@page "/deliverycenter"
 @using LuminaireConfigurator.Client.Components
-@using LuminaireConfigurator.Shared
 
 <h2>Delivery Center</h2>
 <div>
@@ -10,8 +9,8 @@
     <CustomSelect Size="20"
                   Items="@LuminaireConfigurations"
                   @bind-Selected="SelectedConfiguration"
-                  ValueSelector="@(l=> l.Id)"
-                  DisplaySelector="@(l=>$"{l.Name} {l.Optic} {l.LampFlux} lm")">
+                  ValueSelector="@(l=> l?.Id)"
+                  DisplaySelector="@(l=>$"{l?.Name} {l?.Optic} {l?.LampFlux} lm")">
     </CustomSelect>
 </div>
 

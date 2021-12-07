@@ -5,8 +5,8 @@ namespace LuminaireConfigurator.Client.Pages
 {
   public partial class MasterDetail
   {
-    private LuminaireConfiguration selectedConfiguration;
-    public LuminaireConfiguration SelectedConfiguration
+    private LuminaireConfiguration? selectedConfiguration;
+    public LuminaireConfiguration? SelectedConfiguration
     {
       get { return selectedConfiguration; }
       set
