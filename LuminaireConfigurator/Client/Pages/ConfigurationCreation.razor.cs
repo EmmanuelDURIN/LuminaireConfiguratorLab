@@ -43,8 +43,9 @@ namespace LuminaireConfigurator.Client.Pages
       // example of pseudo DB/Web api call
       //bool isNameValid = true; 
       //if (isNameValid && Configuration != null)
-      //{
-      //  messageStore?.Add(() => Configuration.Name!, "Configuration name must be unique.");
+      //{$
+      //object o = new object();
+      //messageStore?.Add(() => o, "Configuration name must be unique.");
       //}
     }
     private void HandleValidSubmit()
